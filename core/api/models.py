@@ -2,8 +2,7 @@ from django.db import models
 from django.contrib.auth.models import (AbstractBaseUser,
                                          BaseUserManager, 
                                          PermissionsMixin)
-from django.core.validators import validate_email
-
+ 
 
 class UserManager(BaseUserManager):
     #manager for users
@@ -29,11 +28,35 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     #creating user model, permissionsmixin for functionality permisisons and fields
+    USER_TYPE_CHOICES = (
+        ('basic', 'Basic'),
+        ('admin', 'Admin')
+    )
+
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
+    user_type = models.CharField(choices=USER_TYPE_CHOICES, default='basic', max_length=5)
     is_staff = models.BooleanField(default=False)
 
     objects = UserManager()
 
-    #exchaning default username for email address
+    #exchaning default username's field for email address
     USERNAME_FIELD = 'email'
+
+    def __str__(self):
+        return self.email
+    
+
+class Task(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(max_length=500, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+    
+class Work(models.Model):
+    name = models.CharField(max_length=255)
+    tasks = models.ManyToManyField('Task', related_name='works')
+
+    def __str__(self):
+        return self.name

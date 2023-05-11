@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'drf_spectacular',
+    'user',
+    'work',
+    'task',
 ]
 
 MIDDLEWARE = [
