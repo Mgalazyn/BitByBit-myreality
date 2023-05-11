@@ -2,8 +2,9 @@ from django.shortcuts import render
 from api.models import Work
 from rest_framework import viewsets
 from work import serializers
+from rest_framework import permissions
 
-class WorkViewSet(viewsets.ModelViewSet):
+class WorkViewSet(viewsets.ModelViewSet, permissions.IsAdminUser):
     serializer_class = serializers.WorkDetailsSerializer
     queryset = Work.objects.all()
 
@@ -11,3 +12,4 @@ class WorkViewSet(viewsets.ModelViewSet):
         if self.action == 'list':
             return serializers.WorkSerializer
         return self.serializer_class
+    

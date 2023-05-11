@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'user',
     'work',
     'task',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -142,4 +143,9 @@ AUTH_USER_MODEL = 'api.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
+
+# LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/api/user/users/'

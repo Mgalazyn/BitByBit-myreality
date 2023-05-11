@@ -1,8 +1,9 @@
 from django.test import TestCase
 from django.urls import reverse
-
+from rest_framework.test import APIClient
 from api import models
 from work.serializers import WorkDetailsSerializer
+from django.contrib.auth import get_user_model
 
 WORK_URL = reverse('work:work-list')
 
@@ -37,6 +38,12 @@ class WorkModelApiTests(TestCase):
     def test_retriving_work_list(self):
         work = create_work()
         url = work_url(work.id)
-        result = self.client.get(url)
+        client = APIClient()
+        user = get_user_model().objects.create_user(
+            email='test@example.com', password='testpassword123', is_staff=True, user_type='admin'
+        )
+        client.force_authenticate(user=user)
+
+        result = client.get(url)
         serializer = WorkDetailsSerializer(work)
         self.assertEqual(result.data, serializer.data)
