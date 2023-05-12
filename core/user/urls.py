@@ -9,7 +9,8 @@ router.register('users', views.UserViewSet)
 app_name = 'user'
 
 urlpatterns = [
-    path('login/', views.CustomTokenObtainPairView.as_view(), name='login'),
+    path('login/', views.LoginView.as_view(), name='login'),
+    path('token/', TokenObtainPairView.as_view(), name='token'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('create/', views.CreateUserView.as_view(), name='create'),
     path('', include(router.urls)),

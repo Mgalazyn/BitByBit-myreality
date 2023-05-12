@@ -8,9 +8,11 @@ from django.shortcuts import redirect
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.urls import reverse
 from django.contrib.auth import authenticate, login
+from rest_framework import generics
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 
-class CustomTokenObtainPairView(TokenObtainPairView):
+class LoginView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
         if response.status_code == 200:
