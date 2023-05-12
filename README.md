@@ -14,5 +14,5 @@ Next step serving data:
 
 # Documentation of api 
 Added through rest_framework Swagger 
-so going to: http://127.0.0.1:8000/api/docs/
+so going to: http://127.0.0.1:8000/api/docs/ after runing server
 you can read about all endpoints fields
