@@ -3,6 +3,8 @@ from django.urls import reverse
 from rest_framework import status
 from api import models
 from task.serializers import TaskDetailsSerializer, TaskSerializer
+from rest_framework.test import APIClient
+from django.contrib.auth import get_user_model
 
 TASK_URL = reverse('task:task-list')
 
@@ -38,6 +40,7 @@ class TaskModelApiTests(TestCase):
         serializer = TaskSerializer(tasks, many=True)
         self.assertEqual(result.status_code, status.HTTP_200_OK)
         self.assertEqual(result.data, serializer.data)
+
 
     def test_retriving_task_details(self):
         task = create_task()
